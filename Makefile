@@ -2,14 +2,20 @@ PYTHON := python3
 PIP    := pip3
 CONFIG := configs/experiment.yaml
 
-# Optional: scope train/eval/stats to one dataset.  Example: make train DATASET=cicids2017
+# Optional: scope train/eval/stats/seeds to one dataset.
+# Example: make train DATASET=cicids2017
 DATASET_ARG := $(if $(DATASET),--dataset $(DATASET),)
 
-.PHONY: all setup data preprocess_cicids2017 preprocess_unsw_nb15 \
-        train eval stats export clean help
+# Number of seeds for multi-seed runs (generates seeds [1..N]).
+# Override: make seeds SEEDS=10
+SEEDS ?= 5
 
-## Default: full pipeline on both datasets
-all: preprocess_cicids2017 preprocess_unsw_nb15 train eval stats export
+.PHONY: all setup data preprocess_cicids2017 preprocess_unsw_nb15 \
+        train eval stats export clean help \
+        seeds aggregate stats_advanced plots paper_artifacts
+
+## Default: full pipeline — preprocess, single-run train/eval/stats, seed runs, paper artifacts
+all: preprocess_cicids2017 preprocess_unsw_nb15 train eval stats seeds paper_artifacts
 
 ## Set up Python virtual environment and install dependencies
 setup:
@@ -46,13 +52,39 @@ stats:
 export:
 	$(PYTHON) src/evaluation/export.py --config $(CONFIG)
 
-## Remove all generated outputs and processed data; raw data is preserved
+## Run all models across N seeds (default N=5). Override: make seeds SEEDS=10
+## Seeds list will be [1, 2, ..., N]. Optional: make seeds SEEDS=5 DATASET=cicids2017
+seeds:
+	$(PYTHON) src/models/seed_runner.py --config $(CONFIG) --n-seeds $(SEEDS) $(DATASET_ARG)
+
+## Build mean±std aggregate tables from per-seed results
+## Optional: make aggregate DATASET=unsw_nb15
+aggregate:
+	$(PYTHON) src/evaluation/aggregate.py --config $(CONFIG) $(DATASET_ARG)
+
+## Bootstrap 95% CI + Wilcoxon + Cliff's delta + McNemar advanced stats
+## Optional: make stats_advanced DATASET=cicids2017
+stats_advanced:
+	$(PYTHON) src/evaluation/stats_advanced.py --config $(CONFIG) $(DATASET_ARG)
+
+## Generate PR curves, confusion matrix, and macro-F1 bar chart (per dataset)
+## Optional: make plots DATASET=unsw_nb15
+plots:
+	$(PYTHON) src/evaluation/plots_advanced.py --config $(CONFIG) $(DATASET_ARG)
+
+## Run aggregate + stats_advanced + plots + export + generate docs/results_summary.md
+paper_artifacts:
+	$(PYTHON) src/evaluation/paper_artifacts.py --config $(CONFIG)
+
+## Remove all generated outputs and processed data; raw data in data/raw/ is preserved
 clean:
 	rm -rf outputs/models/cicids2017/ outputs/models/unsw_nb15/
 	rm -rf outputs/metrics/cicids2017/ outputs/metrics/unsw_nb15/
 	rm -f  outputs/metrics/summary.tex
 	rm -rf outputs/figures/cicids2017/ outputs/figures/unsw_nb15/
+	rm -rf outputs/tables/
 	rm -rf data/processed/cicids2017/ data/processed/unsw_nb15/
+	rm -f  docs/results_summary.md docs/reproducibility.md
 	@echo "Cleaned outputs and processed data. Raw data in data/raw/ preserved."
 
 help:

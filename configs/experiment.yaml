@@ -5,6 +5,10 @@
 experiment:
   name: "ids-baseline-2026"
   random_state: 42
+  # Multi-seed settings (Phase 2 — CLAUDE.md)
+  seeds: [1, 2, 3, 4, 5]   # default 5 seeds; set to [1..10] for more rigour
+  bootstrap_reps: 1000      # number of bootstrap resamples for 95% CI
+  bootstrap_max_samples: 50000  # stratified subsample cap for bootstrap speed (full set used for point estimates)
 
 paths:
   raw_data:       "data/raw"
@@ -18,11 +22,13 @@ datasets:
   cicids2017:
     raw_subdir:   "cicids2017"
     # NOTE: CIC CSVs have leading spaces in headers; the preprocessor strips them.
-    # label_col is the stripped name (no leading space).
     label_col:    "Label"
     benign_label: "BENIGN"
     test_size:    0.2
     stratify:     true
+    # Cap training set to 200k rows (stratified) for seed runs — keeps runtime manageable.
+    # The fixed test set is NOT capped so evaluation is always on the full held-out split.
+    cap_rows:     200000
 
   unsw_nb15:
     raw_subdir:   "unsw_nb15"
@@ -36,6 +42,9 @@ datasets:
       - "proto"
       - "service"
       - "state"
+    # Official training set is ~175k rows — under the 200k cap, so no cap applied.
+    # Uncomment the line below to cap if runtime becomes an issue:
+    # cap_rows: 200000
 
 models:
   - name: dummy
@@ -44,19 +53,21 @@ models:
 
   - name: logistic_regression
     params:
-      max_iter: 1000
+      max_iter: 2000      # raised for convergence on large/high-dim data
       C: 1.0
-      random_state: 42
+      random_state: 42   # overridden per-seed in seed_runner
 
   - name: random_forest
     params:
-      n_estimators: 100
-      max_depth: null
-      random_state: 42
+      n_estimators: 300  # ≤ 300 per CLAUDE.md constraint
+      max_depth: 20      # ≤ 20 per CLAUDE.md constraint
+      random_state: 42   # overridden per-seed in seed_runner
 
   - name: xgboost
     params:
-      n_estimators: 100
-      max_depth: 6
+      n_estimators: 500  # ≤ 500 per CLAUDE.md constraint
+      max_depth: 8       # ≤ 8 per CLAUDE.md constraint
       learning_rate: 0.1
-      random_state: 42
+      subsample: 0.9     # ≤ 0.9 per CLAUDE.md constraint
+      colsample_bytree: 0.9
+      random_state: 42   # overridden per-seed in seed_runner
