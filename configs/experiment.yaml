@@ -1,0 +1,62 @@
+# SecPipeAI — Experiment Configuration
+# Datasets: CICIDS2017 (UNB CIC), UNSW-NB15 (UNSW)
+# All metrics produced by executed code; do not edit outputs/ manually.
+
+experiment:
+  name: "ids-baseline-2026"
+  random_state: 42
+
+paths:
+  raw_data:       "data/raw"
+  processed_data: "data/processed"
+  models:         "outputs/models"
+  metrics:        "outputs/metrics"
+  figures:        "outputs/figures"
+  checksums:      "configs/checksums.yaml"
+
+datasets:
+  cicids2017:
+    raw_subdir:   "cicids2017"
+    # NOTE: CIC CSVs have leading spaces in headers; the preprocessor strips them.
+    # label_col is the stripped name (no leading space).
+    label_col:    "Label"
+    benign_label: "BENIGN"
+    test_size:    0.2
+    stratify:     true
+
+  unsw_nb15:
+    raw_subdir:   "unsw_nb15"
+    train_file:   "UNSW_NB15_training-set.csv"
+    test_file:    "UNSW_NB15_testing-set.csv"
+    label_col:    "label"
+    drop_cols:
+      - "id"
+      - "attack_cat"    # multi-class label — drop to prevent leakage
+    categorical_cols:
+      - "proto"
+      - "service"
+      - "state"
+
+models:
+  - name: dummy
+    params:
+      strategy: "most_frequent"
+
+  - name: logistic_regression
+    params:
+      max_iter: 1000
+      C: 1.0
+      random_state: 42
+
+  - name: random_forest
+    params:
+      n_estimators: 100
+      max_depth: null
+      random_state: 42
+
+  - name: xgboost
+    params:
+      n_estimators: 100
+      max_depth: 6
+      learning_rate: 0.1
+      random_state: 42

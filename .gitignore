@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data — raw data is tracked only via .gitkeep; actual files are ignored
+data/raw/**/*.csv
+data/raw/**/*.gz
+data/raw/**/*.zip
+data/raw/**/*.tar.gz
+data/raw/**/*.arff
+# Processed numpy arrays (generated artifacts)
+data/processed/
+
+# Outputs — large artifacts (per-dataset subdirs)
+outputs/models/**/*.pkl
+outputs/models/**/*.joblib
+outputs/models/**/*.json
+outputs/metrics/**/*.csv
+outputs/metrics/**/*.json
+outputs/metrics/**/*.tex
+outputs/figures/**/*.png
+outputs/figures/**/*.pdf
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Misc
+*.log
