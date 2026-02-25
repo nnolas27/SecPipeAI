@@ -52,3 +52,7 @@ No values were manually fabricated or edited.
 - CPU-only (no GPU)
 - RAM: 7.6 GB
 - Total runtime (paper_artifacts target): 47 seconds
+
+## Zenodo Archive
+- DOI: [10.5281/zenodo.18766119](https://doi.org/10.5281/zenodo.18766119)
+- Archive: https://doi.org/10.5281/zenodo.18766119

@@ -47,7 +47,7 @@
 - [x] SHA-256 checksums in configs/checksums.yaml
 - [x] Makefile pipeline executable
 - [ ] GitHub repository made public
-- [ ] Zenodo DOI obtained for artifact archive (replace TBD in manuscript)
+- [x] Zenodo DOI obtained: https://doi.org/10.5281/zenodo.18766119
 - [ ] Docker image built and tested
 
 ### Figures (all in outputs/paper/figures/)
