@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{Statistical tests: best model vs. Logistic Regression}
+\label{tab:stats}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lrrrrrrr}
+\toprule
+Dataset & Best Model & vs. Baseline & McNemar χ² & McNemar p & Bootstrap 95% CI (Macro-F1) & Cliff's δ & Wilcoxon p (n=5 seeds) \\
+\midrule
+CICIDS2017 & Xgboost & Logistic Regression & 41001.0 & < 0.0001 & [0.9973, 0.9984] & 1.0 (large) & 0.0625 \\
+UNSW-NB15 & Random Forest & Logistic Regression & 1761.1 & < 0.0001 & [0.8917, 0.8975] & 1.0 (large) & 0.0625 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

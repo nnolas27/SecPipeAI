@@ -36,8 +36,10 @@ outputs/models/**/*.json
 outputs/metrics/**/*.csv
 outputs/metrics/**/*.json
 outputs/metrics/**/*.tex
+outputs/metrics/**/*.npy
 outputs/figures/**/*.png
 outputs/figures/**/*.pdf
+outputs/tables/
 
 # OS / editor
 .DS_Store
