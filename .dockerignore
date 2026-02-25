@@ -1,0 +1,16 @@
+# Don't copy large/generated files into the build context
+data/raw/
+data/processed/
+outputs/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.git/
+.gitignore
+*.docx
+*.md
+docs/
+scripts/
+.DS_Store
+*.swp
