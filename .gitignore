@@ -1,3 +1,34 @@
+# AI Assistant files - NEVER commit
+claude.md
+CLAUDE.md
+.claude/
+.claude_config
+.cursorrules
+.cursor/
+.cursorignore
+.copilot/
+copilot-instructions.md
+.aider*
+aider.conf
+
+# Documents - don't belong in code repo
+*.docx
+*.doc
+*.pptx
+*.xlsx
+*.pdf
+
+# Skills/docs that are AI-related
+skills/
+mnt/
+
+# Environment and secrets
+.env
+.env.*
+secrets.*
+*.key
+*.pem
+
 # Python
 __pycache__/
 *.py[cod]
@@ -18,18 +49,16 @@ ENV/
 
 # Jupyter
 .ipynb_checkpoints/
-*.ipynb_checkpoints
 
-# Data — raw data is tracked only via .gitkeep; actual files are ignored
+# Data — raw data tracked via .gitkeep; actual files are ignored
 data/raw/**/*.csv
 data/raw/**/*.gz
 data/raw/**/*.zip
 data/raw/**/*.tar.gz
 data/raw/**/*.arff
-# Processed numpy arrays (generated artifacts)
 data/processed/
 
-# Outputs — large artifacts (per-dataset subdirs)
+# Outputs — large artifacts
 outputs/models/**/*.pkl
 outputs/models/**/*.joblib
 outputs/models/**/*.json
@@ -41,17 +70,27 @@ outputs/figures/**/*.png
 outputs/figures/**/*.pdf
 outputs/tables/
 
-# OS / editor
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Node (if applicable)
+node_modules/
+package-lock.json
 
 # Pytest / coverage
 .pytest_cache/
 .coverage
 htmlcov/
-
-# Misc
-*.log

@@ -2,9 +2,9 @@
 """
 SecPipeAI Final Manuscript Generator
 =====================================
-Implements PHASE 2–5 from CLAUDE.md:
+Implements Phase 2–5 of the experiment pipeline:
   - Phase 2: outputs/paper/key_numbers.json, final tables
-  - Phase 3-5: SecPipeAI_Final_JCC.docx + SecPipeAI_Final_ClusterComputing.docx
+  - Phase 3-5: manuscript generation
 
 All numeric values sourced from pipeline-generated artifacts only.
 No fabrication.

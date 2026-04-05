@@ -5,7 +5,7 @@
 experiment:
   name: "ids-baseline-2026"
   random_state: 42
-  # Multi-seed settings (Phase 2 — CLAUDE.md)
+  # Multi-seed settings (Phase 2)
   seeds: [1, 2, 3, 4, 5]   # default 5 seeds; set to [1..10] for more rigour
   bootstrap_reps: 1000      # number of bootstrap resamples for 95% CI
   bootstrap_max_samples: 50000  # stratified subsample cap for bootstrap speed (full set used for point estimates)
@@ -59,15 +59,15 @@ models:
 
   - name: random_forest
     params:
-      n_estimators: 300  # ≤ 300 per CLAUDE.md constraint
-      max_depth: 20      # ≤ 20 per CLAUDE.md constraint
+      n_estimators: 300  # max 300
+      max_depth: 20      # max 20
       random_state: 42   # overridden per-seed in seed_runner
 
   - name: xgboost
     params:
-      n_estimators: 500  # ≤ 500 per CLAUDE.md constraint
-      max_depth: 8       # ≤ 8 per CLAUDE.md constraint
+      n_estimators: 500  # max 500
+      max_depth: 8       # max 8
       learning_rate: 0.1
-      subsample: 0.9     # ≤ 0.9 per CLAUDE.md constraint
+      subsample: 0.9     # max 0.9
       colsample_bytree: 0.9
       random_state: 42   # overridden per-seed in seed_runner
