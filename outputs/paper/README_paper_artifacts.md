@@ -54,5 +54,5 @@ No values were manually fabricated or edited.
 - Total runtime (paper_artifacts target): 47 seconds
 
 ## Zenodo Archive
-- DOI: [10.5281/zenodo.18766119](https://doi.org/10.5281/zenodo.18766119)
-- Archive: https://doi.org/10.5281/zenodo.18766119
+- DOI: [10.5281/zenodo.18766118](https://doi.org/10.5281/zenodo.18766118)
+- Archive: https://doi.org/10.5281/zenodo.18766118

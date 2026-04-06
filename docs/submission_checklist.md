@@ -1,17 +1,17 @@
-# Submission Checklist — SecPipeAI
+# Submission Checklist - SecPipeAI
 
 ## Target Journals
 - [ ] **Primary**: Journal of Cloud Computing (Springer Nature)
   - Submission portal: https://www.springer.com/journal/13677
-  - Manuscript: `SecPipeAI_Final_JCC.docx`
+  - Manuscript: prepared separately (not tracked in repo)
 - [ ] **Alternate**: Cluster Computing (Springer Nature)
-  - Manuscript: `SecPipeAI_Final_ClusterComputing.docx`
+  - Manuscript: prepared separately (not tracked in repo)
 
 ## Pre-Submission Checklist
 
 ### Manuscript
 - [x] Abstract contains actual numeric results (no placeholders)
-- [x] All "[PLANNED — NOT YET EXECUTED]" replaced with actual results
+- [x] All "[PLANNED - NOT YET EXECUTED]" replaced with actual results
 - [x] Section 7 (Results) fully populated
 - [x] Statistical tests reported (McNemar, bootstrap CI, Cliff's delta, Wilcoxon)
 - [x] Figures embedded (Figures 1–5)
@@ -25,7 +25,7 @@
 - [ ] Word count within journal limits (check JCC guidelines)
 
 ### Integrity
-- [x] No fabricated results — all numbers from outputs/paper/key_numbers.json
+- [x] No fabricated results; all numbers from outputs/paper/key_numbers.json
 - [x] No NSL-KDD references
 - [x] No BETH results claimed (not executed)
 - [x] No LSTM-AE results claimed (not executed)
@@ -47,7 +47,7 @@
 - [x] SHA-256 checksums in configs/checksums.yaml
 - [x] Makefile pipeline executable
 - [ ] GitHub repository made public
-- [x] Zenodo DOI obtained: https://doi.org/10.5281/zenodo.18766119
+- [x] Zenodo DOI obtained: https://doi.org/10.5281/zenodo.18766118
 - [ ] Docker image built and tested
 
 ### Figures (all in outputs/paper/figures/)
@@ -59,7 +59,7 @@
 
 ### References
 - [x] All DOIs verified against cited papers
-- [ ] Check for any unverifiable references — flag and remove
+- [ ] Check for any unverifiable references (flag and remove)
 
 ### Final Steps
 - [ ] Re-read full manuscript for typos and consistency

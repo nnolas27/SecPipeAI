@@ -2,12 +2,12 @@
 
 **AI-Augmented Anomaly Detection and Threat Mitigation Framework for Cloud-Native DevSecOps Pipelines**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18766119.svg)](https://doi.org/10.5281/zenodo.18766119)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18766118.svg)](https://doi.org/10.5281/zenodo.18766118)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 ## Overview
 
-SecPipeAI is a reproducible machine-learning framework for network intrusion detection, designed to integrate into cloud-native DevSecOps pipelines. It benchmarks multiple classifiers on two widely used cybersecurity datasets — **CICIDS2017** and **UNSW-NB15** — with full statistical rigor including multi-seed evaluation, bootstrap confidence intervals, McNemar's test, and Cliff's delta effect sizes.
+SecPipeAI is a reproducible machine-learning framework for network intrusion detection, designed to integrate into cloud-native DevSecOps pipelines. It benchmarks multiple classifiers on two widely used cybersecurity datasets (**CICIDS2017** and **UNSW-NB15**) with full statistical rigor including multi-seed evaluation, bootstrap confidence intervals, McNemar's test, and Cliff's delta effect sizes.
 
 The framework is CPU-only and runs on commodity hardware (8 GB RAM), making it accessible for research and production deployment without GPU dependencies.
 
@@ -149,9 +149,9 @@ outputs/
 
 All experiments are fully reproducible:
 
-- `configs/experiment.yaml` — hyperparameters, dataset paths, seed configuration
-- `configs/checksums.yaml` — SHA-256 checksums for raw data files
-- `requirements.txt` — fully pinned Python dependencies
+- `configs/experiment.yaml`: hyperparameters, dataset paths, seed configuration
+- `configs/checksums.yaml`: SHA-256 checksums for raw data files
+- `requirements.txt`: fully pinned Python dependencies
 - `random_state=42` used throughout (overridden per-seed in multi-seed runs)
 - Dockerfile provided for containerized reproduction
 
@@ -166,8 +166,8 @@ If you use SecPipeAI in your research, please cite:
                    Mitigation Framework for Cloud-Native DevSecOps Pipelines}},
   year         = {2026},
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.18766119},
-  url          = {https://doi.org/10.5281/zenodo.18766119}
+  doi          = {10.5281/zenodo.18766118},
+  url          = {https://doi.org/10.5281/zenodo.18766118}
 }
 ```
 
