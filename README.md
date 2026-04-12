@@ -13,19 +13,9 @@ The framework is CPU-only and runs on commodity hardware (8 GB RAM), making it a
 
 ## Architecture
 
-```
-┌──────────────────────────────────────────────────────────┐
-│                    SecPipeAI Pipeline                     │
-├──────────┬──────────┬──────────┬──────────┬──────────────┤
-│  Data    │ Feature  │  Model   │  Eval    │  Artifact    │
-│  Ingest  │ Engineer │ Training │ & Stats  │  Export      │
-│          │          │          │          │              │
-│ download │ preproc  │ train    │ evaluate │ tables (CSV) │
-│ checksum │ impute   │ seed_run │ McNemar  │ tables (TeX) │
-│ validate │ scale    │ cross-   │ Cliff's  │ figures      │
-│          │ encode   │ validate │ CI/boot  │ key_numbers  │
-└──────────┴──────────┴──────────┴──────────┴──────────────┘
-```
+![SecPipeAI Architecture](docs/architecture.png)
+
+The framework is organized into three logical modules: a **Collector** for data ingestion, validation, and leakage-free preprocessing; a **Detector** that runs four ML classifiers (Dummy, Logistic Regression, Random Forest, XGBoost) with multi-seed evaluation; and an **Orchestrator** that coordinates the pipeline via a single Makefile and produces publication-ready statistical artifacts.
 
 ## Key Features
 
