@@ -79,9 +79,74 @@ make paper_artifacts
 | `make aggregate` | Aggregate seed results (mean, std, CI) |
 | `make stats_advanced` | Bootstrap CI, Cliff's delta, Wilcoxon |
 | `make paper_artifacts` | Generate all publication-ready artifacts |
+| `make serve` | Start inference API server on port 8000 |
 | `make clean` | Remove outputs and processed data |
 
 Scope to a single dataset: `make train DATASET=cicids2017`
+
+## DevSecOps Integration
+
+SecPipeAI exposes trained classifiers as a REST API for integration into CI/CD pipelines, container runtime monitors, and network probes. Run `make all` first to train models, then start the inference server:
+
+```bash
+make serve
+# or directly:
+uvicorn src.api.inference:app --host 0.0.0.0 --port 8000
+```
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/detect` | POST | Classify a single network flow feature vector |
+| `/detect/batch` | POST | Classify a batch of flows; returns `attack_rate` |
+| `/health` | GET | Liveness probe for Kubernetes / load balancers |
+| `/models` | GET | List available trained models and metadata |
+| `/docs` | GET | Interactive OpenAPI documentation |
+
+### Pipeline Security Gate
+
+The `/detect/batch` endpoint returns an `attack_rate` field (fraction of flows classified as attacks). A pipeline gate reads this field and blocks the pipeline if it exceeds a threshold:
+
+```bash
+# GitHub Actions environment variable (default: 1% attack rate threshold)
+SECPIPEAI_ALERT_THRESHOLD=0.01
+```
+
+The `.github/workflows/secpipeai-devsecops.yml` workflow demonstrates the full integration: dependency integrity check, API schema validation, and pipeline gate. The gate fails with exit code 1 when `attack_rate > threshold`.
+
+### Single-Flow Detection
+
+```bash
+curl -X POST http://localhost:8000/detect \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "features": [0.0, 1.0, ...],
+    "dataset": "cicids2017",
+    "model_name": "xgboost",
+    "source_component": "my-pipeline-agent",
+    "pipeline_id": "run-12345"
+  }'
+```
+
+Response:
+```json
+{
+  "prediction": 0,
+  "label": "BENIGN",
+  "confidence": 0.003,
+  "alert": false,
+  "inference_latency_ms": 1.2,
+  "timestamp_utc": "2026-04-19T12:00:00+00:00"
+}
+```
+
+### Docker (Inference API)
+
+```bash
+docker build -f Dockerfile.api -t secpipeai-api .
+docker run --rm -p 8000:8000 -v $(pwd)/outputs:/app/outputs secpipeai-api
+```
 
 ## Datasets
 

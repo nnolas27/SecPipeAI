@@ -12,7 +12,8 @@ SEEDS ?= 5
 
 .PHONY: all setup data preprocess_cicids2017 preprocess_unsw_nb15 \
         train eval stats export clean help \
-        seeds aggregate stats_advanced plots paper_artifacts
+        seeds aggregate stats_advanced plots paper_artifacts \
+        serve
 
 ## Default: full pipeline — preprocess, single-run train/eval/stats, seed runs, paper artifacts
 all: preprocess_cicids2017 preprocess_unsw_nb15 train eval stats seeds paper_artifacts
@@ -75,6 +76,11 @@ plots:
 ## Run aggregate + stats_advanced + plots + export + generate docs/results_summary.md
 paper_artifacts:
 	$(PYTHON) src/evaluation/paper_artifacts.py --config $(CONFIG)
+
+## Start the inference API server on port 8000 (requires trained models; run 'make all' first)
+## Listens on all interfaces so CI/CD agents can call it from a sidecar or host network
+serve:
+	uvicorn src.api.inference:app --host 0.0.0.0 --port 8000 --reload
 
 ## Remove all generated outputs and processed data; raw data in data/raw/ is preserved
 clean:
